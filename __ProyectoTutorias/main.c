@@ -69,7 +69,7 @@ void menuAdministrador() {
 	} while (opcion != 11);
 }
 
-// Recibe el indice del docente ya autenticado en login(); no vuelve a pedir credenciales.
+
 void menuDocenteRol(int idx) {
 	limpiarPantalla();
 	int opcion = 0;
@@ -86,7 +86,7 @@ void menuDocenteRol(int idx) {
 	} while (opcion != 3);
 }
 
-// Recibe el indice del estudiante ya autenticado en login(); no vuelve a pedir credenciales.
+
 void menuEstudianteRol(int idx) {
 	limpiarPantalla();
 	int opcion = 0;
@@ -103,9 +103,7 @@ void menuEstudianteRol(int idx) {
 	} while (opcion != 3);
 }
 
-// Devuelve 1 si el usuario desea salir del programa (escribio 'salir' como
-// usuario), o 0 si se debe volver a mostrar la pantalla de inicio de sesion
-// (por ejemplo, para iniciar sesion con otra cuenta registrada).
+
 int login() {
 	char user[50], pass[50];
 	int autenticado = 0;
@@ -123,8 +121,7 @@ int login() {
 		autenticado = 1;
 		menuAdministrador();
 	} else {
-		// Logica para docentes: se autentica una unica vez aqui y se pasa
-		// directamente el indice al menu, sin volver a solicitar credenciales.
+	
 		int i;
 		for(i=0; i<contadorDocentes; i++) {
 			if(strcmp(user, listaDocentes[i].codigoDocente) == 0 && strcmp(pass, listaDocentes[i].clave) == 0) {
@@ -133,7 +130,7 @@ int login() {
 				break;
 			}
 		}
-		// Logica para estudiantes: misma correccion que para docentes.
+
 		if(!autenticado) {
 			for(i=0; i<contadorEstudiantes; i++) {
 				if(strcmp(user, listaEstudiantes[i].cedula) == 0 && strcmp(pass, listaEstudiantes[i].clave) == 0) {
