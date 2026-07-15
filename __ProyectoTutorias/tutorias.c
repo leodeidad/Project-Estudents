@@ -74,7 +74,7 @@ int validarFechaYLimite(char fecha[], int *d, int *m, int *a) {
 	return 1;
 }
 
-// Genera el siguiente codigo de tutoria (TUT<numero>) para la posicion dada.
+
 static void generarCodigoTutoria(int pos, char codigoOut[]) {
 	int num = pos + 1;
 	codigoOut[0] = 'T'; codigoOut[1] = 'U'; codigoOut[2] = 'T';
@@ -88,12 +88,7 @@ static void generarCodigoTutoria(int pos, char codigoOut[]) {
 	}
 }
 
-// --------------------------------------------------------------------------
-// SOLICITUD DE TUTORIA (rol Estudiante)
-// El estudiante ya NO elige al docente: se usa automaticamente el docente
-// que le fue asignado obligatoriamente al momento de su registro.
-// El estudiante solo puede elegir Carrera/Materia (tema) y Horario (bloque+fecha).
-// --------------------------------------------------------------------------
+
 void agendarTutoria(char cedulaEstudiante[]) {
 	limpiarPantalla();
 	printf("--- Solicitar Tutoria ---\n");
@@ -315,7 +310,7 @@ void guardarTutoriasBaseDatos() {
 	}
 	
 	for (int i = 0; i < contadorTutorias; i++) {
-		// Guardamos todos los atributos estructuradamente de la tutoría
+	
 		fprintf(archivo, "%s;%s;%s;%s;%d;%s;%d\n",
 				listaTutorias[i].codigoTutoria,
 				listaTutorias[i].cedulaEstudiante,
@@ -328,7 +323,6 @@ void guardarTutoriasBaseDatos() {
 	fclose(archivo);
 }
 
-// NUEVA FUNCIÓN: Carga la base de datos de tutorías al iniciar el programa
 void cargarTutoriasBaseDatos() {
 	FILE *archivo = fopen("tutorias_db.txt", "r");
 	if (archivo == NULL) {
@@ -364,10 +358,7 @@ void cargarTutoriasBaseDatos() {
 	}
 	fclose(archivo);
 }
-// --------------------------------------------------------------------------
-// GESTION ADMINISTRATIVA CENTRALIZADA (rol Administrador)
-// Crear, cancelar, activar y editar tutorias es exclusivo del Administrador.
-// --------------------------------------------------------------------------
+
 
 void adminCrearTutoria() {
 	char cedulaEstudiante[20];
@@ -452,7 +443,6 @@ void adminCrearTutoria() {
 	esperarEnter();
 }
 
-// Busca una tutoria por codigo y devuelve su indice, o -1 si no existe.
 static int buscarTutoriaPorCodigo(char codigoBuscado[]) {
 	int i = 0;
 	for (i = 0; i < contadorTutorias; i = i + 1) {
