@@ -61,9 +61,7 @@ static void esperarEnter() {
 	limpiarPantalla();
 }
 
-// Lee una linea completa (permite espacios, ej. "Ana Garcia") de forma segura.
-// Debe llamarse siempre despues de un scanf("%s", ...) previo, ya que primero
-// descarta el salto de linea pendiente de esa lectura anterior.
+
 static void leerNombreCompleto(char *buffer, int maxLen, const char *mensaje) {
 	printf("%s", mensaje);
 	while (getchar() != '\n');
@@ -125,9 +123,7 @@ int validarCedulaFormato(char cedula[]) {
 	return 1;
 }
 
-// Muestra los docentes cuya area de conocimiento coincide con la carrera indicada
-// y obliga a seleccionar uno de ellos. Devuelve 1 si se asigno correctamente,
-// 0 si no hay docentes disponibles para esa carrera (no se puede continuar).
+
 int asignarDocenteObligatorio(char carrera[], char docenteAsignadoOut[]) {
 	int indicesDisponibles[100];
 	int totalDisponibles = 0;
@@ -211,8 +207,7 @@ void registrarEstudiante() {
 	else if (opCarrera == 2) strcpy(listaEstudiantes[pos].carrera, "Ing en Computacion");
 	else strcpy(listaEstudiantes[pos].carrera, "Ing en Sistemas");
 
-	// Asignacion obligatoria de docente tutor segun la carrera seleccionada.
-	// Si no hay docentes disponibles para esa carrera, se cancela el registro.
+
 	if (asignarDocenteObligatorio(listaEstudiantes[pos].carrera, listaEstudiantes[pos].docenteAsignado) == 0) {
 		esperarEnter();
 		return;
@@ -275,27 +270,26 @@ void modificarEstudiante() {
 			encontrado = 1;
 			printf("Estudiante encontrado: %s\n", listaEstudiantes[i].nombreCompleto);
 			
-			// Usamos nuestra funcion de validacion de letras
+			
 			leerSoloLetras(listaEstudiantes[i].nombreCompleto, 100, "Ingrese nuevo nombre completo: ");
 			
 			int opCarrera;
 			printf("Seleccione la nueva carrera:\n1. Ing en Software\n2. Ing en Computacion\n3. Ing en Sistemas\nOpcion: ");
 			scanf("%d", &opCarrera);
 			
-			// Usamos strcpy en lugar de asignar letra por letra
+			
 			if (opCarrera == 1) strcpy(listaEstudiantes[i].carrera, "Ing en Software");
 			else if (opCarrera == 2) strcpy(listaEstudiantes[i].carrera, "Ing en Computacion");
 			else strcpy(listaEstudiantes[i].carrera, "Ing en Sistemas");
 			
-			// Al cambiar de carrera, el docente tutor debe volver a asignarse
-			// de forma obligatoria para mantener la coherencia del sistema.
+			
 			if (asignarDocenteObligatorio(listaEstudiantes[i].carrera, listaEstudiantes[i].docenteAsignado) == 0) {
 				printf("No se pudo completar la modificacion: no hay docente disponible para la nueva carrera.\n");
 				esperarEnter();
 				return;
 			}
 			
-			// Validacion de numeros para el semestre
+			
 			char tempSemestre[5];
 			leerSoloNumeros(tempSemestre, 2, "Ingrese nuevo semestre (1-10): ");
 			listaEstudiantes[i].nivelSemestre = atoi(tempSemestre);
@@ -384,7 +378,6 @@ void guardarEstudiantesBaseDatos() {
 	fclose(archivo);
 }
 
-// NUEVA FUNCIÓN: Carga la base de datos de estudiantes al iniciar el programa
 void cargarEstudiantesBaseDatos() {
 	FILE *archivo = fopen("estudiantes_db.txt", "r");
 	if (archivo == NULL) {
