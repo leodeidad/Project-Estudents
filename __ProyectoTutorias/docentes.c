@@ -21,9 +21,7 @@ static void esperarEnter() {
 	limpiarPantalla();
 }
 
-// Lee una linea completa (permite espacios, ej. "Juan Perez") de forma segura.
-// Debe llamarse siempre despues de un scanf("%s", ...) previo, ya que primero
-// descarta el salto de linea pendiente de esa lectura anterior.
+
 static void leerNombreCompleto(char *buffer, int maxLen, const char *mensaje) {
 	printf("%s", mensaje);
 	while (getchar() != '\n');
@@ -85,7 +83,7 @@ void registrarDocente() {
 		printf("Opcion invalida. Ingrese 1, 2 o 3: ");
 	}
 	
-	// SE OPTIMIZÓ: Reemplazo de asignación caracter por caracter usando strcpy para que coincida con estudiantes
+	
 	if (opArea == 1) {
 		strcpy(listaDocentes[pos].areaConocimiento, "Ing en Software");
 	} else if (opArea == 2) {
@@ -147,7 +145,7 @@ void modificarDocente() {
 				printf("Invalido. Ingrese 1, 2 o 3: ");
 			}
 			
-			// SE OPTIMIZÓ: Reemplazo de asignación caracter por caracter usando strcpy
+			
 			if (opArea == 1) {
 				strcpy(listaDocentes[i].areaConocimiento, "Ing en Software");
 			} else if (opArea == 2) {
@@ -213,7 +211,7 @@ void guardarDocentesTXT() {
 	fclose(archivo);
 }
 
-// Guarda la base de datos de docentes en formato estructurado
+
 void guardarDocentesBaseDatos() {
 	FILE *archivo = fopen("docentes_db.txt", "w");
 	if (archivo == NULL) {
@@ -222,7 +220,7 @@ void guardarDocentesBaseDatos() {
 	}
 	
 	for (int i = 0; i < contadorDocentes; i++) {
-		// Guardamos los campos separados por punto y coma (;) sin espacios de adorno
+
 		fprintf(archivo, "%s;%s;%s;%s;%d\n",
 				listaDocentes[i].codigoDocente,
 				listaDocentes[i].nombreCompleto,
@@ -233,11 +231,11 @@ void guardarDocentesBaseDatos() {
 	fclose(archivo);
 }
 
-// Carga la base de datos de docentes al iniciar el programa
+
 void cargarDocentesBaseDatos() {
 	FILE *archivo = fopen("docentes_db.txt", "r");
 	if (archivo == NULL) {
-		// Si el archivo no existe, simplemente inicializamos el contador en 0
+
 		contadorDocentes = 0;
 		return;
 	}
@@ -246,10 +244,10 @@ void cargarDocentesBaseDatos() {
 	contadorDocentes = 0;
 	
 	while (fgets(linea, sizeof(linea), archivo) != NULL && contadorDocentes < 100) {
-		// Eliminar salto de línea al final
+
 		linea[strcspn(linea, "\n")] = '\0';
 		
-		// Extraemos cada campo utilizando strtok con el separador ';'
+
 		char *codigo = strtok(linea, ";");
 		char *nombre = strtok(NULL, ";");
 		char *clave = strtok(NULL, ";");
